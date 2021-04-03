@@ -38,6 +38,20 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">、
             <div class="row">
                 <div class="col-md-4 col-md-offset-1">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>水果名</th>
+                            <th>水果单价</th>
+                            <th>水果数量</th>
+                            <th>合计</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+
+                        </tbody>
+                    </table>
                     <form>
                         <button type="submit" class="btn btn-default">创建订单</button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加水果</button>
@@ -60,22 +74,43 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">数量</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入....">
+                        <label for="count">数量</label>
+                        <input type="email" class="form-control" id="count" placeholder="请输入....">
                     </div>
-                    <select class="form-control">
+                    <select class="form-control"id="fruitSelect">
                         <c:forEach items="${sessionScope.FruitList}" var="fruit">
-                            <option value="${fruit.id}">${fruit.name}</option>
+                            <option value="${fruit.id}" price="${fruit.price}">${fruit.name}</option>
                         </c:forEach>
                     </select>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">添加</button>
+                <button type="button" class="btn btn-primary"id="addBtn">添加</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $("#addBtn").click(function () {
+            console.log($("#fruitSelect").val());
+            console.log($("#count").val());
+            console.log($("#fruitSelect").find("option:selected").text());
+            console.log($("#fruitSelect").find("option:selected").attr("price"));
+            var fid = $("#fruitSelect").val();
+            var count = $("#count").val();
+            var fname = $("#fruitSelect").find("option:selected").text();
+            var price = $("#fruitSelect").find("option:selected").attr("price");
+            $("#tbody").append("<tr>\n" +
+                "                            <td>"+fid+"</td>\n" +
+                "                            <td>"+fname+"</td>\n" +
+                "                            <td>"+price+"</td>\n" +
+                "                            <td>"+count+"</td>\n" +
+                "                            <td>"+price*count+"</td>\n" +
+                "                        </tr>")
+        })
+    })
+</script>
 </body>
 </html>
