@@ -13,7 +13,9 @@ import java.util.List;
 public interface FruitDao {
     public  String addFruit(Fruit fruit);
     public BigDecimal update(Fruit fruit);
+    public void updateSales(String fid,int sales);
     public List<Fruit> queryAll();
     public Fruit queryOneByName(String name);
+    public Fruit queryOneByFid(String fid);
     public void deleFruit(Fruit fruit);
 }

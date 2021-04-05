@@ -52,7 +52,8 @@
 
                         </tbody>
                     </table>
-                    <form>
+                    <form action="addOrderServlet",method="post">
+                        <input type="hidden"name="oid"id="oid">
                         <button type="submit" class="btn btn-default">创建订单</button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加水果</button>
                     </form>
@@ -77,7 +78,7 @@
                         <label for="count">数量</label>
                         <input type="email" class="form-control" id="count" placeholder="请输入....">
                     </div>
-                    <select class="form-control"id="fruitSelect">
+               w     <select class="form-control"id="fruitSelect">
                         <c:forEach items="${sessionScope.FruitList}" var="fruit">
                             <option value="${fruit.id}" price="${fruit.price}">${fruit.name}</option>
                         </c:forEach>
@@ -94,10 +95,6 @@
 <script>
     $(function () {
         $("#addBtn").click(function () {
-            console.log($("#fruitSelect").val());
-            console.log($("#count").val());
-            console.log($("#fruitSelect").find("option:selected").text());
-            console.log($("#fruitSelect").find("option:selected").attr("price"));
             var fid = $("#fruitSelect").val();
             var count = $("#count").val();
             var fname = $("#fruitSelect").find("option:selected").text();
@@ -109,6 +106,21 @@
                 "                            <td>"+count+"</td>\n" +
                 "                            <td>"+price*count+"</td>\n" +
                 "                        </tr>")
+            $.ajax({
+                url:"addOrderItemServlet",   //请求地址
+                type:"get",   //请求方法
+                data:{"fid":fid,"fname":fname,"count":count,"price":price},   //要发送的数据,相当于表单提交的数据，json形式。
+                dataType:"text",   //期待返回的数据类型，也可以理解为请求的数据类型
+                error:function () {  //发生错误时的处理
+                    console.log("error request");
+                },
+                success:function (data) {  //成功时的处理。参数表示返回的数据
+                    console.log(data);
+                    alert("订单项添加成功！订单编号为："+data);
+                    $("#oid").val(data);
+                }
+
+            })
         })
     })
 </script>

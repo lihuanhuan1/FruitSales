@@ -11,6 +11,22 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.hh.FruitSales.controller.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddOrderItemServlet</servlet-name>
+        <servlet-class>com.hh.FruitSales.controller.AddOrderItemServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddOrderServlet</servlet-name>
+        <servlet-class>com.hh.FruitSales.controller.AddOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddOrderServlet</servlet-name>
+        <url-pattern>/addOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddOrderItemServlet</servlet-name>
+        <url-pattern>/addOrderItemServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>IndexJumpServlet</servlet-name>
         <url-pattern>/indexJump</url-pattern>

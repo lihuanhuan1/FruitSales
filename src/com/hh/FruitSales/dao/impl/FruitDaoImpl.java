@@ -32,6 +32,12 @@ public class FruitDaoImpl implements FruitDao {
     }
 
     @Override
+    public void updateSales(String fid, int sales) {
+        String sql="update fruit_tbl set sales=? where id=?";
+        JDBCUtils.update(sql,sales,fid);
+    }
+
+    @Override
     public List<Fruit> queryAll() {
         Connection conn=null;
         PreparedStatement ps=null;
@@ -66,6 +72,33 @@ public class FruitDaoImpl implements FruitDao {
             String sql="select * from fruit_tbl where name=?";
             ps=conn.prepareStatement(sql);
             ps.setString(1,name);
+            rs=ps.executeQuery();
+            if(rs.next()){
+                fruit=new Fruit(rs.getInt("id"), rs.getString("name"),rs.getBigDecimal("price"),rs.getBigDecimal("cost"),rs.getInt("sales"));
+            }else {
+                JDBCUtils.closeResource(conn,ps,rs);
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            JDBCUtils.closeResource(conn,ps,rs);
+        }
+        return fruit;
+    }
+
+    @Override
+    public Fruit queryOneByFid(String fid) {
+        Connection conn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        Fruit fruit=null;
+        try {
+            conn=JDBCUtils.getConnection();
+            String sql="select * from fruit_tbl where id=?";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,fid);
             rs=ps.executeQuery();
             if(rs.next()){
                 fruit=new Fruit(rs.getInt("id"), rs.getString("name"),rs.getBigDecimal("price"),rs.getBigDecimal("cost"),rs.getInt("sales"));
