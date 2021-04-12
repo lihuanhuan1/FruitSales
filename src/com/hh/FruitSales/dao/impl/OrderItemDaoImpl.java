@@ -5,6 +5,7 @@ import com.hh.FruitSales.bean.OrderItem;
 import com.hh.FruitSales.dao.OrderItemDao;
 import com.hh.FruitSales.utils.JDBCUtils;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,32 @@ import java.util.List;
  * @create 2021-03-12-16:11
  */
 public class OrderItemDaoImpl implements OrderItemDao {
+    @Override
+    public BigDecimal getTotalPriceByOid(String oid) {
+        Connection conn=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null;
+        List<OrderItem> list=new ArrayList<>();
+        BigDecimal totalPrice=new BigDecimal(0);
+        try {
+            conn=JDBCUtils.getConnection();
+            String sql="select * from order_item_tbl where oid=?";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,oid);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                BigDecimal price = rs.getBigDecimal("price");
+                totalPrice=totalPrice.add(price);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            JDBCUtils.closeResource(conn,ps,rs);
+        }
+        return totalPrice;
+    }
+
     @Override
     public void addOrderItem(OrderItem orderItem) {
         String sql="insert into order_item_tbl(oid,fid,fcount,price)values(?,?,?,?)";

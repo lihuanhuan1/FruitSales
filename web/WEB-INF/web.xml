@@ -19,6 +19,22 @@
         <servlet-name>AddOrderServlet</servlet-name>
         <servlet-class>com.hh.FruitSales.controller.AddOrderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OrderManagerServlet</servlet-name>
+        <servlet-class>com.hh.FruitSales.controller.OrderManagerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GoIndexServlet</servlet-name>
+        <servlet-class>com.hh.FruitSales.controller.GoIndexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GoIndexServlet</servlet-name>
+        <url-pattern>/goIndexServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderManagerServlet</servlet-name>
+        <url-pattern>/orderManagerServlet</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddOrderServlet</servlet-name>
         <url-pattern>/addOrderServlet</url-pattern>

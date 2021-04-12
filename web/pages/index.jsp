@@ -31,7 +31,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#">主页</a></li>
-                <li><a href="#">订单管理<span class="sr-only">(current)</span></a></li>
+                <li><a href="orderManagerServlet">订单管理<span class="sr-only">(current)</span></a></li>
                 <li><a href="#">水果管理<span class="sr-only">(current)</span></a></li>
             </ul>
         </div>
